@@ -18,7 +18,7 @@ export const createModel = (settings: ModelSettings) =>
 
 const startGoalPrompt = new PromptTemplate({
   template:
-    "You are an autonomous task creation AI called AgentGPT. You have the following objective `{goal}`. Create a list of zero to three tasks to be completed by your AI system such that your goal is more closely reached or completely reached. Return the response as an array of strings that can be used in JSON.parse()",
+    "你是一个名为 AgentGPT 的自主任务创建 AI。 您有以下目标 `{goal}`。 创建一个包含 0 到 3 个任务的列表，让你的 AI 系统完成，以便更接近或完全达到你的目标。 将响应作为可在 JSON.parse() 中使用的字符串数组返回",
   inputVariables: ["goal"],
 });
 export const startGoalAgent = async (model: OpenAI, goal: string) => {
@@ -32,7 +32,7 @@ export const startGoalAgent = async (model: OpenAI, goal: string) => {
 
 const executeTaskPrompt = new PromptTemplate({
   template:
-    "You are an autonomous task execution AI called AgentGPT. You have the following objective `{goal}`. You have the following tasks `{task}`. Execute the task and return the response as a string.",
+    "你是一个名为 AgentGPT 的自主任务执行 AI。 您有以下目标 `{goal}`。 您有以下任务 `{task}`。 执行任务并以字符串形式返回响应。",
   inputVariables: ["goal", "task"],
 });
 export const executeTaskAgent = async (
@@ -48,7 +48,7 @@ export const executeTaskAgent = async (
 
 const createTaskPrompt = new PromptTemplate({
   template:
-    "You are an AI task creation agent. You have the following objective `{goal}`. You have the following incomplete tasks `{tasks}` and have just executed the following task `{lastTask}` and received the following result `{result}`. Based on this, create a new task to be completed by your AI system ONLY IF NEEDED such that your goal is more closely reached or completely reached. Return the response as an array of strings that can be used in JSON.parse() and NOTHING ELSE",
+    "您是 AI 任务创建代理。 您有以下目标 `{goal}`。 您有以下未完成的任务`{task}`并且刚刚执行了以下任务`{lastTask}`并收到以下结果`{result}`。 在此基础上，创建一个新任务，仅在需要时由您的 AI 系统完成，以便更接近或完全达到您的目标。 将响应作为可在 JSON.parse() 和 NOTHING ELSE 中使用的字符串数组返回",
   inputVariables: ["goal", "tasks", "lastTask", "result"],
 });
 export const executeCreateTaskAgent = async (
