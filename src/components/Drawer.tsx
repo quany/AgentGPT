@@ -21,6 +21,7 @@ import { env } from "../env/client.mjs";
 import { api } from "../utils/api";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import Image from 'next/image'
 
 const Drawer = ({
   showHelp,
@@ -81,7 +82,7 @@ const Drawer = ({
               className="flex-grow"
               icon={<BiPlus />}
               border
-              text="New Agent"
+              text="新增代理"
               onClick={() => location.reload()}
             />
             <button
@@ -104,8 +105,7 @@ const Drawer = ({
 
             {userAgents.length === 0 && (
               <div>
-                Click the above button to restart. In the future, this will be a
-                list of your deployed agents!
+                点击上面的按钮重新启动。 将来，这将是您部署的代理的列表！
               </div>
             )}
           </ul>
@@ -131,12 +131,18 @@ const Drawer = ({
           )}
           <DrawerItem
             icon={<FaQuestionCircle />}
-            text="Help"
+            text="帮助"
             onClick={showHelp}
           />
-          <DrawerItem icon={<FaCog />} text="Settings" onClick={showSettings} />
+          <DrawerItem icon={<FaCog />} text="设置" onClick={showSettings} />
           <hr className="my-2 border-white/20" />
-          <div className="flex flex-row items-center">
+          <Image
+            src="/wechat.jpg"
+            alt="wechat qr code"
+            width={200}
+            height={200}
+          />
+          {/* <div className="flex flex-row items-center">
             <DrawerItem
               icon={<FaDiscord size={30} />}
               text="Discord"
@@ -158,7 +164,7 @@ const Drawer = ({
               target="_blank"
               small
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

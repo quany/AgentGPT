@@ -26,7 +26,7 @@ const PDFButton = ({ messages }: { messages: Message[] }) => {
           downloadPDF().catch(console.error);
         }}
         icon={<FaSave size={12} />}
-        text={"Save"}
+        text={"保存"}
       />
     </>
   );
@@ -37,10 +37,10 @@ const getContent = (messages: Message[]): string => {
   return messages
     .map((message) => {
       if (message.type == "goal") {
-        return `Goal: ${message.value}`;
+        return `目标: ${message.value}`;
       }
       if (message.type == "task") {
-        return `Adding Task: ${message.value}`;
+        return `正在添加任务: ${message.value}`;
       }
       return message.value;
     })

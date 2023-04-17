@@ -162,8 +162,7 @@ const Home: NextPage = () => {
               </div>
               <div className="mt-1 text-center font-mono text-[0.7em] font-bold text-white">
                 <p>
-                  Assemble, configure, and deploy autonomous AI Agents in your
-                  browser.
+                  在浏览器中组装、配置和部署自主 AI 代理。
                 </p>
               </div>
             </div>
@@ -187,7 +186,7 @@ const Home: NextPage = () => {
                   left={
                     <>
                       <FaRobot />
-                      <span className="ml-2">Name:</span>
+                      <span className="ml-2">名称:</span>
                     </>
                   }
                   value={name}
@@ -201,13 +200,13 @@ const Home: NextPage = () => {
                   left={
                     <>
                       <FaStar />
-                      <span className="ml-2">Goal:</span>
+                      <span className="ml-2">目标:</span>
                     </>
                   }
                   disabled={agent != null}
                   value={goalInput}
                   onChange={(e) => setGoalInput(e.target.value)}
-                  placeholder="Make the world a better place."
+                  placeholder="让世界变得更美好。"
                 />
               </Expand>
             </div>
@@ -219,11 +218,11 @@ const Home: NextPage = () => {
                 className="sm:mt-10"
               >
                 {agent == null ? (
-                  "Deploy Agent"
+                  "部署代理"
                 ) : (
                   <>
                     <VscLoading className="animate-spin" size={20} />
-                    <span className="ml-2">Running</span>
+                    <span className="ml-2">运行中</span>
                   </>
                 )}
               </Button>
@@ -237,10 +236,10 @@ const Home: NextPage = () => {
                 {shouldAgentStop ? (
                   <>
                     <VscLoading className="animate-spin" size={20} />
-                    <span className="ml-2">Stopping</span>
+                    <span className="ml-2">暂停中</span>
                   </>
                 ) : (
-                  "Stop agent"
+                  "停止代理"
                 )}
               </Button>
             </Expand>

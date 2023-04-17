@@ -10,27 +10,34 @@ export default function HelpDialog({
   close: () => void;
 }) {
   return (
-    <Dialog header="Welcome to AgentGPT 🤖" isShown={show} close={close}>
+    <Dialog header="欢迎使用AgentGPT🤖" isShown={show} close={close}>
       <div className="text-md relative flex-auto p-2 leading-relaxed">
         <p>
-          <strong>AgentGPT</strong> allows you to configure and deploy
-          Autonomous AI agents. Name your custom AI and have it embark on any
-          goal imaginable. It will attempt to reach the goal by thinking of
-          tasks to do, executing them, and learning from the results 🚀
+          <strong>AgentGPT</strong> 允许您配置和部署自治 AI 代理。 为您的自定义 AI 命名并让它开始任何可以想象的目标。 它将尝试通过思考要完成的任务、执行任务并从结果中学习来实现目标🚀
         </p>
         <div>
           <br />
-          This platform is currently in beta, we are currently working on:
+          该平台目前处于测试阶段，我们目前正在致力于：
           <ul className="ml-5 list-inside list-disc">
-            <li>Long term memory 🧠</li>
-            <li>Web browsing 🌐</li>
-            <li>Interaction with websites and people 👨‍👩‍👦</li>
+            <li>长期记忆 🧠</li>
+            <li>网页浏览 🌐</li>
+            <li>与网站和人的互动 👨‍👩‍👦</li>
           </ul>
           <br />
-          <p className="mt-2">Follow the journey below:</p>
+          {/* <p className="mt-2">按照下面的旅程：</p> */}
         </div>
         <div className="mt-4 flex w-full items-center justify-center gap-5">
-          <div
+          <p>
+          我正在
+          <a
+            href="https://t.zsxq.com/0dScWktE1"
+            className="text-blue-500"
+          >
+            「Auto-GPT」
+          </a>
+          和朋友们讨论有趣的话题，你⼀起来吧？
+          </p>
+          {/* <div
             className="cursor-pointer rounded-full bg-black/30 p-3 hover:bg-black/70"
             onClick={() =>
               window.open("https://discord.gg/jdSBAnmdnY", "_blank")
@@ -56,7 +63,7 @@ export default function HelpDialog({
             }
           >
             <FaGithub size={30} />
-          </div>
+          </div> */}
         </div>
       </div>
     </Dialog>
