@@ -137,34 +137,11 @@ const Drawer = ({
           <DrawerItem icon={<FaCog />} text="设置" onClick={showSettings} />
           <hr className="my-2 border-white/20" />
           <Image
-            src="/wechat.jpg"
+            src="/coder.jpg"
             alt="wechat qr code"
             width={200}
             height={200}
           />
-          {/* <div className="flex flex-row items-center">
-            <DrawerItem
-              icon={<FaDiscord size={30} />}
-              text="Discord"
-              href="https://discord.gg/jdSBAnmdnY"
-              target="_blank"
-              small
-            />
-            <DrawerItem
-              icon={<FaTwitter size={30} />}
-              text="Twitter"
-              href="https://twitter.com/asimdotshrestha/status/1644883727707959296"
-              target="_blank"
-              small
-            />
-            <DrawerItem
-              icon={<FaGithub size={30} />}
-              text="GitHub"
-              href="https://github.com/reworkd/AgentGPT"
-              target="_blank"
-              small
-            />
-          </div> */}
         </div>
       </div>
     </>
