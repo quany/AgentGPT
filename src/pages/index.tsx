@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { type NextPage } from "next";
-import Badge from "../components/Badge";
 import DefaultLayout from "../layout/default";
 import type { Message } from "../components/ChatWindow";
 import ChatWindow from "../components/ChatWindow";
@@ -8,14 +7,12 @@ import Drawer from "../components/Drawer";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { FaRobot, FaStar } from "react-icons/fa";
-import PopIn from "../components/motions/popin";
 import { VscLoading } from "react-icons/vsc";
 import AutonomousAgent from "../components/AutonomousAgent";
 import Expand from "../components/motions/expand";
 import HelpDialog from "../components/HelpDialog";
 import SettingsDialog from "../components/SettingsDialog";
 import { GPT_35_TURBO, DEFAULT_MAX_LOOPS_FREE } from "../utils/constants";
-import { useSession } from "next-auth/react";
 import { TaskWindow } from "../components/TaskWindow";
 import { useAuth } from "../hooks/useAuth";
 
@@ -37,19 +34,6 @@ const Home: NextPage = () => {
 
   const [showHelpDialog, setShowHelpDialog] = React.useState(false);
   const [showSettingsDialog, setShowSettingsDialog] = React.useState(false);
-
-  // TODO: enable for crud
-  // const utils = api.useContext();
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  // const voidFunc = () => {};
-  // const createAgent = api.agent.create.useMutation({
-  //   onSuccess: (data) => {
-  //     utils.agent.getAll.setData(voidFunc(), (oldData) => [
-  //       ...(oldData ?? []),
-  //       data,
-  //     ]);
-  //   },
-  // });
 
   useEffect(() => {
     const key = "agentgpt-modal-opened-new";
