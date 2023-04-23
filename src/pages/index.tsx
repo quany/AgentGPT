@@ -156,9 +156,6 @@ const Home: NextPage = () => {
                 <span className="text-4xl font-bold text-white xs:text-5xl sm:text-6xl">
                   GPT
                 </span>
-                <PopIn delay={0.5} className="sm:absolute sm:right-0 sm:top-2">
-                  <Badge>Beta 🚀</Badge>
-                </PopIn>
               </div>
               <div className="mt-1 text-center font-mono text-[0.7em] font-bold text-white">
                 <p>
@@ -192,7 +189,7 @@ const Home: NextPage = () => {
                   value={name}
                   disabled={agent != null}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="AgentGPT"
+                  placeholder="小爱同学"
                 />
               </Expand>
               <Expand delay={1.3}>
@@ -218,7 +215,7 @@ const Home: NextPage = () => {
                 className="sm:mt-10"
               >
                 {agent == null ? (
-                  "部署代理"
+                  "启动"
                 ) : (
                   <>
                     <VscLoading className="animate-spin" size={20} />
@@ -239,7 +236,7 @@ const Home: NextPage = () => {
                     <span className="ml-2">暂停中</span>
                   </>
                 ) : (
-                  "停止代理"
+                  "停止"
                 )}
               </Button>
             </Expand>
