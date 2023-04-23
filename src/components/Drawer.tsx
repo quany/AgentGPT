@@ -137,10 +137,10 @@ const Drawer = ({
           <DrawerItem icon={<FaCog />} text="设置" onClick={showSettings} />
           <hr className="my-2 border-white/20" />
           <Image
-            src="/coder.jpg"
+            src="/zsxq.jpeg"
             alt="wechat qr code"
-            width={200}
-            height={200}
+            width={300}
+            height={100}
           />
         </div>
       </div>
