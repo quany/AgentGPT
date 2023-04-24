@@ -109,14 +109,14 @@ class AutonomousAgent {
       }
 
       if (newTasks.length == 0) {
-        this.sendActionMessage("Task marked as complete!");
+        this.sendActionMessage("任务标记为完成！");
       }
     } catch (e) {
       console.log(e);
       this.sendErrorMessage(
-        `ERROR adding additional task(s). It might have been against our model's policies to run them. Continuing.`
+        `添加附加任务时出错。 运行它们可能违反了我们模型的政策。 继续。`
       );
-      this.sendActionMessage("Task marked as complete.");
+      this.sendActionMessage("任务标记为完成。");
     }
 
     await this.loop();
