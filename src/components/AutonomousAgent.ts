@@ -259,7 +259,7 @@ const testConnection = async (modelSettings: ModelSettings) => {
     "https://api.openai.com/v1/chat/completions",
     {
       model: modelSettings.customModelName,
-      messages: [{ role: "user", content: "Say this is a test" }],
+      messages: [{ role: "user", content: "说这是一个测试" }],
       max_tokens: 7,
       temperature: 0,
     },
@@ -274,17 +274,17 @@ const testConnection = async (modelSettings: ModelSettings) => {
 
 const getMessageFromError = (e: unknown) => {
   let message =
-    "ERROR accessing OpenAI APIs. Please check your API key or try again later";
+    "访问 OpenAI API 时出错。 请检查您的 API 密钥或稍后重试";
   if (axios.isAxiosError(e)) {
     const axiosError = e as AxiosError;
     if (axiosError.response?.status === 429) {
-      message = `ERROR using your OpenAI API key. You've exceeded your current quota, please check your plan and billing details.`;
+      message = `使用您的 OpenAI API 密钥时出错。 您已超出当前配额，请检查您的计划和账单明细。`;
     }
     if (axiosError.response?.status === 404) {
-      message = `ERROR your API key does not have GPT-4 access. You must first join OpenAI's wait-list. (This is different from ChatGPT Plus)`;
+      message = `错误您的 API 密钥没有 GPT-4 访问权限。 您必须先加入 OpenAI 的候补名单。 （这与 ChatGPT Plus 不同）`;
     }
   } else {
-    message = `ERROR retrieving initial tasks array. Retry, make your goal more clear, or revise your goal such that it is within our model's policies to run. Shutting Down.`;
+    message = `检索初始任务数组时出错。 重试，使您的目标更明确，或修改您的目标，使其符合我们模型的运行策略。 关机。`;
   }
   return message;
 };
