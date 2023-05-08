@@ -205,7 +205,7 @@ class AutonomousAgent {
       value:
         this.modelSettings.customApiKey !== ""
           ? `此代理运行时间过长（50 个循环）。 为了保存您的钱包，此代理正在关闭。 将来，迭代次数将是可配置的。`
-          : "很抱歉，因为这是一个演示，我们不能让我们的代理运行太久。 请注意，如果您希望运行更长的时间，请在设置中提供您自己的 API 密钥。 关机。",
+          : "很抱歉，因为这是一个演示，我们不能让我们的代理运行太久。 请注意，如果您希望运行更长的时间，请在设置中提供您自己的 API 密钥。 休息一下",
     });
   }
 
@@ -219,7 +219,7 @@ class AutonomousAgent {
   sendCompletedMessage() {
     this.sendMessage({
       type: "system",
-      value: "所有任务完成。 已停止。",
+      value: "所有任务完成! 休息一下。",
     });
   }
 
@@ -284,7 +284,7 @@ const getMessageFromError = (e: unknown) => {
       message = `错误您的 API 密钥没有 GPT-4 访问权限。 您必须先加入 OpenAI 的候补名单。 （这与 ChatGPT Plus 不同）`;
     }
   } else {
-    message = `检索初始任务数组时出错。 重试，使您的目标更明确，或修改您的目标，使其符合我们模型的运行策略。 关机。`;
+    message = `检索初始任务数组时出错。 重试，使您的目标更明确，或修改您的目标，使其符合我们模型的运行策略。 休息一下...`;
   }
   return message;
 };

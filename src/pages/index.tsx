@@ -35,6 +35,9 @@ const Home: NextPage = () => {
   const [showHelpDialog, setShowHelpDialog] = React.useState(false);
   const [showSettingsDialog, setShowSettingsDialog] = React.useState(false);
 
+  const [prepayId, setPrepayId] = React.useState<string>("");
+  const [fee, setFee] = React.useState<number>(0);
+
   useEffect(() => {
     const key = "agentgpt-modal-opened-new";
     const savedModalData = localStorage.getItem(key);
@@ -47,6 +50,7 @@ const Home: NextPage = () => {
     }, 3000);
 
     localStorage.setItem(key, JSON.stringify(true));
+    setWechatPayInfo();
   }, []);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -59,6 +63,24 @@ const Home: NextPage = () => {
       setShouldAgentStop(false);
     }
   }, [agent]);
+
+  const setWechatPayInfo = () => {
+    const fee = Math.ceil(Math.random() * 100);
+    fetch("/api/v1/weixin/pay/transactions/jsapi", {
+      method: "POST",
+      body: JSON.stringify({
+        desc: "支付消耗Tokens的费用",
+        fee,
+        type: "JSAPI-AGENT-ONECE",
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res:", res);
+        setPrepayId(res.prepay_id);
+        setFee(fee);
+      });
+  };
 
   const handleAddMessage = (message: Message) => {
     setMessages((prev) => [...prev, message]);
@@ -74,15 +96,31 @@ const Home: NextPage = () => {
     //     goal: goalInput,
     //   });
     // }
-    const agent = new AutonomousAgent(
-      name,
-      goalInput,
-      handleAddMessage,
-      () => setAgent(null),
-      { customApiKey, customModelName, customTemperature, customMaxLoops }
-    );
-    setAgent(agent);
-    agent.run().then(console.log).catch(console.error);
+
+    fetch(`/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`)
+      .then((res) => res.json())
+      .then((cfg) => {
+        wx.chooseWXPay({
+          ...cfg,
+          success(msg: any) {
+            console.log('支付成功', msg);
+            const agent = new AutonomousAgent(
+              name,
+              goalInput,
+              handleAddMessage,
+              () => setAgent(null),
+              {
+                customApiKey,
+                customModelName,
+                customTemperature,
+                customMaxLoops,
+              }
+            );
+            setAgent(agent);
+            agent.run().then(console.log).catch(console.error);
+          },
+        });
+      });
   };
 
   const handleStopAgent = () => {
@@ -142,9 +180,7 @@ const Home: NextPage = () => {
                 </span>
               </div>
               <div className="mt-1 text-center font-mono text-[0.7em] font-bold text-white">
-                <p>
-                  在浏览器中组装、配置和部署自主 AI 代理。
-                </p>
+                <p>在浏览器中组装、配置和部署自主 AI 代理。</p>
               </div>
             </div>
 
@@ -173,7 +209,7 @@ const Home: NextPage = () => {
                   value={name}
                   disabled={agent != null}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="小爱同学"
+                  placeholder="一休哥"
                 />
               </Expand>
               <Expand delay={1.3}>
