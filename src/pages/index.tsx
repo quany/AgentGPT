@@ -50,7 +50,7 @@ const Home: NextPage = () => {
     }, 3000);
 
     localStorage.setItem(key, JSON.stringify(true));
-    setWechatPayInfo();
+    if (window.navigator.userAgent.match(/micromessenger/i)) setWechatPayInfo();
   }, []);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
 
   const tasks = messages.filter((message) => message.type === "task");
 
-  const handleNewGoal = () => {
+  const handleNewGoal = async () => {
     // TODO: enable for crud
     // if (env.NEXT_PUBLIC_VERCEL_ENV != "production" && session?.user) {
     //   createAgent.mutate({
@@ -97,30 +97,36 @@ const Home: NextPage = () => {
     //   });
     // }
 
-    fetch(`/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`)
-      .then((res) => res.json())
-      .then((cfg) => {
-        wx.chooseWXPay({
-          ...cfg,
-          success(msg: any) {
-            console.log('支付成功', msg);
-            const agent = new AutonomousAgent(
-              name,
-              goalInput,
-              handleAddMessage,
-              () => setAgent(null),
-              {
-                customApiKey,
-                customModelName,
-                customTemperature,
-                customMaxLoops,
-              }
-            );
-            setAgent(agent);
-            agent.run().then(console.log).catch(console.error);
-          },
-        });
+    if (prepayId) {
+      await new Promise((resolve, reject) => {
+        fetch(`/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`)
+          .then((res) => res.json())
+          .then((cfg) => {
+            wx.chooseWXPay({
+              ...cfg,
+              success(msg: any) {
+                console.log("支付成功", msg);
+                resolve(msg);
+              },
+            });
+          }).catch(reject)
       });
+    }
+
+    const agent = new AutonomousAgent(
+      name,
+      goalInput,
+      handleAddMessage,
+      () => setAgent(null),
+      {
+        customApiKey,
+        customModelName,
+        customTemperature,
+        customMaxLoops,
+      }
+    );
+    setAgent(agent);
+    agent.run().then(console.log).catch(console.error);
   };
 
   const handleStopAgent = () => {
