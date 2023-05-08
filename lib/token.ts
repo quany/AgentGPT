@@ -24,9 +24,3 @@ export async function setToken() {
     await kv.set(`${process.env.TOKEN_KEY}`, data.access_token, { ex: data.expires_in });
     return data.access_token;
 }
-// 调用时执行
-// (async () => {
-//     await redis.set('key', 'value');
-//     let data = await redis.get(`${process.env.TOKEN_KEY}`);
-//     console.log(`${process.env.TOKEN_KEY}`, data)
-// })()
