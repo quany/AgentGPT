@@ -2,8 +2,8 @@
 
 import Script from "next/script";
 import VConsole from "vconsole";
-
-new VConsole();
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from "react";
 
 async function init() {
   const res = await fetch("/api/v1/weixin/config", {
@@ -12,12 +12,8 @@ async function init() {
       url: window.location.href.split("#")[0],
     }),
   });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
-  // Recommendation: handle errors
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
 
@@ -76,6 +72,13 @@ async function init() {
 }
 
 export default function WechatPublicScript() {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const vconsole = searchParams.get('vconsole');
+    if (vconsole) {
+      new VConsole();
+    }
+  },[])
   if (navigator.userAgent.toLowerCase().match(/micromessenger/i)) {
     return (
       <Script
