@@ -112,9 +112,6 @@ const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      // headers: new Headers({
-      //   "Content-Type": "application/json",
-      // }),
       credentials: "include",
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
