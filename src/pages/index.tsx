@@ -39,6 +39,7 @@ const Home: NextPage = () => {
 
   const [prepayId, setPrepayId] = React.useState<string>("");
   const [fee, setFee] = React.useState<number>(0);
+  const [qrcode, setQrcode] = React.useState<string>("");
   // const cookieStore = cookies();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const Home: NextPage = () => {
 
     localStorage.setItem(key, JSON.stringify(true));
     if (window.navigator.userAgent.match(/micromessenger/i)) setWechatPayInfo();
+    else setQrcodePayInfo();
   }, []);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -68,22 +70,41 @@ const Home: NextPage = () => {
   }, [agent]);
 
   const setWechatPayInfo = () => {
-    const fee = Math.ceil(Math.random() * 100);
+    const ifee = Math.ceil(Math.random() * 100);
     fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
       method: "POST",
       credentials: 'include',
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
-        fee,
+        fee: ifee,
         session: Cookies.get('session'),
         type: "JSAPI-AGENT-ONECE",
       }),
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res:", res);
+        console.log("jsapi res:", res);
         setPrepayId(res.prepay_id);
-        setFee(fee);
+        setFee(ifee);
+      });
+  };
+
+  const setQrcodePayInfo = () => {
+    const ifee = Math.ceil(Math.random() * 100);
+    fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native", {
+      method: "POST",
+      credentials: 'include',
+      body: JSON.stringify({
+        desc: "支付消耗Tokens的费用",
+        fee: ifee,
+        type: "NATIVE-AGENT-ONECE",
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("native res:", res);
+        setQrcode(res.code_url);
+        setFee(ifee);
       });
   };
 
