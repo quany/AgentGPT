@@ -64,6 +64,9 @@ dependencies:
   html-to-image:
     specifier: ^1.11.11
     version: 1.11.11
+  js-cookie:
+    specifier: ^3.0.5
+    version: 3.0.5
   jsrsasign:
     specifier: ^10.8.3
     version: 10.8.3
@@ -126,6 +129,9 @@ devDependencies:
   '@types/crypto-js':
     specifier: ^4.1.1
     version: 4.1.1
+  '@types/js-cookie':
+    specifier: ^3.0.3
+    version: 3.0.3
   '@types/jsrsasign':
     specifier: ^10.5.8
     version: 10.5.8
@@ -1742,6 +1748,10 @@ packages:
     dependencies:
       expect: 29.5.0
       pretty-format: 29.5.0
+    dev: true
+
+  /@types/js-cookie@3.0.3:
+    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
     dev: true
 
   /@types/jsdom@20.0.1:
@@ -4694,6 +4704,11 @@ packages:
 
   /jose@4.14.1:
     resolution: {integrity: sha512-SgjXLpP7jhQkUNKL6RpowoR/IF4QKE+WjLDMpNnh2vmhiFs67NftrNpvFtgbwpvRdtueFliahYYWz9E+XZZQlg==}
+    dev: false
+
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
     dev: false
 
   /js-sdsl@4.4.0:

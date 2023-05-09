@@ -16,6 +16,7 @@ import { GPT_35_TURBO, DEFAULT_MAX_LOOPS_FREE } from "../utils/constants";
 import { TaskWindow } from "../components/TaskWindow";
 import { useAuth } from "../hooks/useAuth";
 // import { cookies } from 'next/headers';
+import Cookies from "js-cookie";
 
 const Home: NextPage = () => {
   const { session, status } = useAuth();
@@ -74,7 +75,7 @@ const Home: NextPage = () => {
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee,
-        // session: cookieStore.get('session'),
+        session: Cookies.get('session'),
         type: "JSAPI-AGENT-ONECE",
       }),
     })
