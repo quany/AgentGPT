@@ -15,7 +15,7 @@ import SettingsDialog from "../components/SettingsDialog";
 import { GPT_35_TURBO, DEFAULT_MAX_LOOPS_FREE } from "../utils/constants";
 import { TaskWindow } from "../components/TaskWindow";
 import { useAuth } from "../hooks/useAuth";
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
 const Home: NextPage = () => {
   const { session, status } = useAuth();
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
 
   const [prepayId, setPrepayId] = React.useState<string>("");
   const [fee, setFee] = React.useState<number>(0);
-  const cookieStore = cookies();
+  // const cookieStore = cookies();
 
   useEffect(() => {
     const key = "agentgpt-modal-opened-new";
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee,
-        session: cookieStore.get('session'),
+        // session: cookieStore.get('session'),
         type: "JSAPI-AGENT-ONECE",
       }),
     })
