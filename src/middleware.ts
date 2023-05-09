@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 import kv from "@vercel/kv";
-import { nanoid } from "./lib/utils";
+import { nanoid } from "../lib/utils";
 
 export const config = {
     // matcher: ['/api/v1/weixin/public', '/cgi-bin/:path*'],
@@ -19,7 +19,6 @@ export const config = {
 
 export default async function middleware(req: NextRequest, context: NextFetchEvent) {
     try {
-
         const ua = req.headers.get('user-agent') || '';
         console.log('ua:', ua);
 
