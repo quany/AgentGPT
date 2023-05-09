@@ -68,6 +68,7 @@ const Home: NextPage = () => {
     const fee = Math.ceil(Math.random() * 100);
     fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
       method: "POST",
+      credentials: 'include',
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee,
