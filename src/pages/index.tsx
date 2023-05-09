@@ -66,11 +66,12 @@ const Home: NextPage = () => {
 
   const setWechatPayInfo = () => {
     const fee = Math.ceil(Math.random() * 100);
-    fetch("/api/v1/weixin/pay/transactions/jsapi", {
+    fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
       method: "POST",
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee,
+        openid: 'onS696a5kcVeSO6In29aqWkP3gJk',
         type: "JSAPI-AGENT-ONECE",
       }),
     })
@@ -99,7 +100,7 @@ const Home: NextPage = () => {
 
     if (prepayId) {
       await new Promise((resolve, reject) => {
-        fetch(`/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`)
+        fetch(`https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`)
           .then((res) => res.json())
           .then((cfg) => {
             wx.chooseWXPay({

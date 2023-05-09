@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect } from "react";
 
 async function init() {
-  const res = await fetch("/api/v1/weixin/config", {
+  const res = await fetch("https://public.l0l.ink/api/v1/weixin/config", {
     method: "POST",
     body: JSON.stringify({
       url: window.location.href.split("#")[0],
