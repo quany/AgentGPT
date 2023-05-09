@@ -5,6 +5,7 @@ import { nanoid } from "../lib/utils";
 export const config = {
     // matcher: ['/api/v1/weixin/public', '/cgi-bin/:path*'],
     matcher: [
+        '/'
         /*
          * Match all request paths except for the ones starting with:
          * - api (API routes)
@@ -12,7 +13,7 @@ export const config = {
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          */
-        '/((?!api|_next/static|_next/image|favicon.ico|MP_verify_nrobkm8ZEGiic2B0.txt).*)',
+        // '/((?!api|_next/static|_next/image|favicon.ico|MP_verify_nrobkm8ZEGiic2B0.txt).*)',
     ],
 };
 
