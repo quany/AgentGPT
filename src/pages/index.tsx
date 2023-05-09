@@ -109,12 +109,12 @@ const Home: NextPage = () => {
 
     fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native/edge", {
       method: "POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      headers: new Headers({
+      headers: {
         "Content-Type": "application/json",
-      }),
+      },
+      // headers: new Headers({
+      //   "Content-Type": "application/json",
+      // }),
       credentials: "include",
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
