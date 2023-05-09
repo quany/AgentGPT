@@ -32,7 +32,11 @@ export default async function middleware(req: NextRequest, context: NextFetchEve
             const requestSession = req.nextUrl.searchParams.get('session');
             if (requestSession) {
                 const res = NextResponse.next();
-                res.cookies.set('session', requestSession);
+                res.cookies.set('session', requestSession, {
+                    secure: true,
+                    httpOnly: true,
+                    sameSite: 'none'
+                });
                 return res;
             }
 
