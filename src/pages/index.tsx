@@ -106,6 +106,20 @@ const Home: NextPage = () => {
         setQrcode(res.code_url);
         setFee(ifee);
       });
+
+      fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native/edge", {
+      method: "POST",
+      credentials: 'include',
+      body: JSON.stringify({
+        desc: "支付消耗Tokens的费用",
+        fee: ifee,
+        type: "NATIVE-AGENT-ONECE",
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("edge res:", res);
+      });
   };
 
   const handleAddMessage = (message: Message) => {
