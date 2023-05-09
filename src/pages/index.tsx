@@ -73,11 +73,11 @@ const Home: NextPage = () => {
     const ifee = Math.ceil(Math.random() * 100);
     fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee: ifee,
-        session: Cookies.get('session'),
+        session: Cookies.get("session"),
         type: "JSAPI-AGENT-ONECE",
       }),
     })
@@ -93,7 +93,7 @@ const Home: NextPage = () => {
     const ifee = Math.ceil(Math.random() * 100);
     fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native", {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee: ifee,
@@ -107,9 +107,12 @@ const Home: NextPage = () => {
         setFee(ifee);
       });
 
-      fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native/edge", {
+    fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native/edge", {
       method: "POST",
-      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
       body: JSON.stringify({
         desc: "支付消耗Tokens的费用",
         fee: ifee,
@@ -139,7 +142,9 @@ const Home: NextPage = () => {
 
     if (prepayId) {
       await new Promise((resolve, reject) => {
-        fetch(`https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`)
+        fetch(
+          `https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`
+        )
           .then((res) => res.json())
           .then((cfg) => {
             wx.chooseWXPay({
@@ -149,7 +154,8 @@ const Home: NextPage = () => {
                 resolve(msg);
               },
             });
-          }).catch(reject)
+          })
+          .catch(reject);
       });
     }
 
