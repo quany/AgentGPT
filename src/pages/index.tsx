@@ -71,6 +71,7 @@ const Home: NextPage = () => {
 
   const setWechatPayInfo = () => {
     const ifee = Math.ceil(Math.random() * 100);
+    console.log('session:', Cookies.get('session'))
     fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
       method: "POST",
       credentials: "include",
