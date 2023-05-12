@@ -1,8 +1,8 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 export default function MPPContainer({
   children,
@@ -110,10 +110,7 @@ export default function MPPContainer({
           />
         )}
         {show && (
-          <div
-            className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/70 p-3 font-mono text-white outline-none transition-all"
-            
-          >
+          <div className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/70 p-3 font-mono text-white outline-none transition-all">
             <div className="relative mx-auto my-6 w-auto max-w-3xl rounded-lg border-2 border-zinc-600">
               {/*content*/}
               <div
@@ -122,8 +119,11 @@ export default function MPPContainer({
               >
                 {/*header*/}
                 <div className="flex items-start justify-between rounded-t border-b-2 border-solid border-white/20 p-5">
-                  <h3 className="font-mono text-3xl font-semibold">费用评估</h3>
-                  <button onClick={close} className="float-right ml-auto border-0 bg-transparent p-1 text-3xl font-semibold leading-none opacity-5 outline-none focus:outline-none">
+                  <h3 className="font-mono text-3xl font-semibold">费用说明</h3>
+                  <button
+                    onClick={close}
+                    className="float-right ml-auto border-0 bg-transparent p-1 text-3xl font-semibold leading-none opacity-5 outline-none focus:outline-none"
+                  >
                     <span className="block h-6 w-6 bg-transparent text-2xl opacity-5 outline-none focus:outline-none">
                       ×
                     </span>
@@ -131,19 +131,21 @@ export default function MPPContainer({
                 </div>
                 {/*body*/}
                 <div className="text-md relative my-3 max-h-[50vh] flex-auto overflow-y-auto p-3 leading-relaxed">
-                  
+                  根据需要消耗的Tokens,预计需要支付:{fee / 100}元.
+                  <br />
+                  请确认支付金额无误后点击支付按钮.
+                  <br />
+                  也可以参加我们的<a href="https://public.l0l.ink/member">会员计划</a>,享受更多服务,使用体验更便捷.
+                  <br />
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end gap-2 rounded-b border-t-2 border-solid border-white/20 p-2">
-                  <button className="middle none center mr-1 rounded-lg px-6 py-3 font-sans text-xs font-bold uppercase text-red-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                    参加会员计划
-                  </button>
                   <button
                     data-ripple-light="true"
                     data-dialog-close="true"
                     className="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 px-6 py-3 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   >
-                    支付费用
+                    支付{fee / 100}元
                   </button>
                 </div>
               </div>
