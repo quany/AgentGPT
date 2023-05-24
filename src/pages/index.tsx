@@ -16,7 +16,7 @@ import { GPT_35_TURBO, DEFAULT_MAX_LOOPS_FREE } from "../utils/constants";
 import { TaskWindow } from "../components/TaskWindow";
 import { useAuth } from "../hooks/useAuth";
 // import { cookies } from 'next/headers';
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const Home: NextPage = () => {
   const { session, status } = useAuth();
@@ -37,9 +37,9 @@ const Home: NextPage = () => {
   const [showHelpDialog, setShowHelpDialog] = React.useState(false);
   const [showSettingsDialog, setShowSettingsDialog] = React.useState(false);
 
-  const [prepayId, setPrepayId] = React.useState<string>("");
-  const [fee, setFee] = React.useState<number>(0);
-  const [qrcode, setQrcode] = React.useState<string>("");
+  // const [prepayId, setPrepayId] = React.useState<string>("");
+  // const [fee, setFee] = React.useState<number>(0);
+  // const [qrcode, setQrcode] = React.useState<string>("");
   // const cookieStore = cookies();
 
   useEffect(() => {
@@ -54,8 +54,8 @@ const Home: NextPage = () => {
     }, 3000);
 
     localStorage.setItem(key, JSON.stringify(true));
-    if (window.navigator.userAgent.match(/micromessenger/i)) setWechatPayInfo();
-    else setQrcodePayInfo();
+    // if (window.navigator.userAgent.match(/micromessenger/i)) setWechatPayInfo();
+    // else setQrcodePayInfo();
   }, []);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -69,62 +69,62 @@ const Home: NextPage = () => {
     }
   }, [agent]);
 
-  const setWechatPayInfo = () => {
-    const ifee = Math.ceil(Math.random() * 100);
-    console.log('session:', Cookies.get('session'))
-    fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({
-        desc: "支付消耗Tokens的费用",
-        fee: ifee,
-        session: Cookies.get("session"),
-        type: "JSAPI-AGENT-ONECE",
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("jsapi res:", res);
-        setPrepayId(res.prepay_id);
-        setFee(ifee);
-      });
-  };
+  // const setWechatPayInfo = () => {
+  //   const ifee = Math.ceil(Math.random() * 100);
+  //   console.log('session:', Cookies.get('session'))
+  //   fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi", {
+  //     method: "POST",
+  //     credentials: "include",
+  //     body: JSON.stringify({
+  //       desc: "支付消耗Tokens的费用",
+  //       fee: ifee,
+  //       session: Cookies.get("session"),
+  //       type: "JSAPI-AGENT-ONECE",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log("jsapi res:", res);
+  //       setPrepayId(res.prepay_id);
+  //       setFee(ifee);
+  //     });
+  // };
 
-  const setQrcodePayInfo = () => {
-    const ifee = Math.ceil(Math.random() * 100);
-    fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({
-        desc: "支付消耗Tokens的费用",
-        fee: ifee,
-        type: "NATIVE-AGENT-ONECE",
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("native res:", res);
-        setQrcode(res.code_url);
-        setFee(ifee);
-      });
+  // const setQrcodePayInfo = () => {
+  //   const ifee = Math.ceil(Math.random() * 100);
+  //   fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native", {
+  //     method: "POST",
+  //     credentials: "include",
+  //     body: JSON.stringify({
+  //       desc: "支付消耗Tokens的费用",
+  //       fee: ifee,
+  //       type: "NATIVE-AGENT-ONECE",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log("native res:", res);
+  //       setQrcode(res.code_url);
+  //       setFee(ifee);
+  //     });
 
-    fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native/edge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        desc: "支付消耗Tokens的费用",
-        fee: ifee,
-        type: "NATIVE-AGENT-ONECE",
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("edge res:", res);
-      });
-  };
+  //   fetch("https://public.l0l.ink/api/v1/weixin/pay/transactions/native/edge", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     credentials: "include",
+  //     body: JSON.stringify({
+  //       desc: "支付消耗Tokens的费用",
+  //       fee: ifee,
+  //       type: "NATIVE-AGENT-ONECE",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log("edge res:", res);
+  //     });
+  // };
 
   const handleAddMessage = (message: Message) => {
     setMessages((prev) => [...prev, message]);
@@ -132,7 +132,7 @@ const Home: NextPage = () => {
 
   const tasks = messages.filter((message) => message.type === "task");
 
-  const handleNewGoal = async () => {
+  const handleNewGoal = () => {
     // TODO: enable for crud
     // if (env.NEXT_PUBLIC_VERCEL_ENV != "production" && session?.user) {
     //   createAgent.mutate({
@@ -141,24 +141,24 @@ const Home: NextPage = () => {
     //   });
     // }
 
-    if (prepayId) {
-      await new Promise((resolve, reject) => {
-        fetch(
-          `https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`
-        )
-          .then((res) => res.json())
-          .then((cfg) => {
-            wx.chooseWXPay({
-              ...cfg,
-              success(msg: any) {
-                console.log("支付成功", msg);
-                resolve(msg);
-              },
-            });
-          })
-          .catch(reject);
-      });
-    }
+    // if (prepayId) {
+    //   await new Promise((resolve, reject) => {
+    //     fetch(
+    //       `https://public.l0l.ink/api/v1/weixin/pay/transactions/jsapi?id=${prepayId}`
+    //     )
+    //       .then((res) => res.json())
+    //       .then((cfg) => {
+    //         wx.chooseWXPay({
+    //           ...cfg,
+    //           success(msg: any) {
+    //             console.log("支付成功", msg);
+    //             resolve(msg);
+    //           },
+    //         });
+    //       })
+    //       .catch(reject);
+    //   });
+    // }
 
     const agent = new AutonomousAgent(
       name,

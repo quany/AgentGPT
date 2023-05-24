@@ -15,18 +15,20 @@ export default function MPPContainer({
 }) {
   const [prepayId, setPrepayId] = useState<string>("");
   const [fee, setFee] = useState<number>(0);
-  const searchParams = useSearchParams();
   const [loading, setLoading] = useState<boolean>(false);
   const [config, setConfig] = useState<any>({});
   const [show, setShow] = useState<boolean>(false);
+
+  const searchParams = useSearchParams();
   if (navigator.userAgent.toLowerCase().match(/micromessenger/i)) {
-    let session = searchParams.get("session");
+    let session = localStorage.getItem("session");
     if (!session) {
-      session = localStorage.getItem("session");
-      if (!session)
+      session = searchParams.get("session");
+      if (!session) {
         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.NEXT_PUBLIC_WECHAT_IC_PUBLIC_APPID}&redirect_uri=${process.env.NEXT_PUBLIC_WECHAT_PUBLIC_REDIRECT_URI}&response_type=code&scope=snsapi_base&state=agent#wechat_redirect`;
-    } else {
-      localStorage.setItem("session", session);
+      } else {
+        localStorage.setItem("session", session);
+      }
     }
 
     useEffect(() => {
@@ -121,7 +123,7 @@ export default function MPPContainer({
                 <div className="flex items-start justify-between rounded-t border-b-2 border-solid border-white/20 p-5">
                   <h3 className="font-mono text-3xl font-semibold">费用说明</h3>
                   <button
-                    onClick={close}
+                    onClick={() => setShow(false)}
                     className="float-right ml-auto border-0 bg-transparent p-1 text-3xl font-semibold leading-none opacity-5 outline-none focus:outline-none"
                   >
                     <span className="block h-6 w-6 bg-transparent text-2xl opacity-5 outline-none focus:outline-none">
@@ -135,7 +137,12 @@ export default function MPPContainer({
                   <br />
                   请确认支付金额无误后点击支付按钮.
                   <br />
-                  也可以参加我们的<a href="https://public.l0l.ink/member">会员计划</a>,享受更多服务,使用体验更便捷.
+                  <br />
+                  也可以参加我们的
+                  <a className="text-blue-500" href="https://public.l0l.ink">
+                    会员计划
+                  </a>
+                  ,享受更多服务,使用体验更便捷.
                   <br />
                 </div>
                 {/*footer*/}
@@ -143,6 +150,17 @@ export default function MPPContainer({
                   <button
                     data-ripple-light="true"
                     data-dialog-close="true"
+                    onClick={() => {
+                      setShow(false);
+                      wx.chooseWXPay({
+                        ...config,
+                        success(msg: any) {
+                          console.log("支付成功", msg);
+                          getPayInfo();
+                          onClick();
+                        },
+                      });
+                    }}
                     className="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 px-6 py-3 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   >
                     支付{fee / 100}元
@@ -157,14 +175,7 @@ export default function MPPContainer({
           <div
             onClick={() => {
               if (prepayId) {
-                wx.chooseWXPay({
-                  ...config,
-                  success(msg: any) {
-                    console.log("支付成功", msg);
-                    getPayInfo();
-                    onClick();
-                  },
-                });
+                setShow(true);
               } else {
                 onClick();
               }
